@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: events-web
+  labels:
+    app: events-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: events-web
+  template:
+    metadata:
+      labels:
+        app: events-web
+    spec:
+      containers:
+      - name: events-web
+        image: gcr.io/dtc-user107/external-image:v1.0.1
+        env:
+        - name: PORT
+          value: "8080"
+        - name: SERVER
+          value: "http://events-data-service"
+        ports:
+        - containerPort: 8080
+          name: "events-port"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
+          limits:
+            memory: "512Mi"
+            cpu: "0.5"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 60
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: events-web-service
+spec: 
+  ports: 
+     -  port: 80
+        protocol: TCP
+        targetPort: 8080
+  selector: 
+    app: events-web
+  type: LoadBalancer
+
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: events-web-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta1
+    kind: Deployment
+    name: events-web
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 60
+
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+    name: development
+    labels:
+        name: development
