@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: events-web
-        image: gcr.io/dtc-user119/external-image:v1.0.0
+        image: gcr.io/dtc-user107/external-image:v1.0.1
         env:
         - name: PORT
           value: "8080"
@@ -71,3 +71,4 @@ spec:
     resource:
       name: cpu
       targetAverageUtilization: 60
+

@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Team Blitzkrieg Website</title>
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Blitzkrieg Events</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <div class="jumbotron">
+      <h1>BLITZKRIEG EVENT MANAGEMENT</h1>      
+      <p>Online Webportal that hosts private events for Deloitte Employees</p>
+      {{{body}}}
+  </div>
   <div>
-      <h1>Welcome to Blitzkrieg application</h1>
-    {{{body}}}
-</div>
-<div>
   <h2>Add an event</h2>
+    <div class="container">
     <form action="/event" method="post">
-       title: <input name="title" type="text" /> <br />
-       description: <input name="description" type="text" /> <br />
-       <br />
-        <input type="submit" name="submit" value="submit" />
+       title: <input name="title" type="text" placeholder="Enter The Event Title"/> <br />
+       description: <input name="description" type="text" rows="5" placeholder="Enter The Event Description"/> <br /> <br />
+       <input type="submit" name="submit" value="submit" /> 
     </form>
+    </div>
   </div>
 </body>
 </html>
